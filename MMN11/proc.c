@@ -532,3 +532,30 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int
+cps()
+{
+	struct proc *p;
+	
+	// Enable interrupts for this processor
+	sti();
+
+	acquire(&ptable.lock); 		// Get lock for the process table
+	cprintf("name \t pid \t state \t \n"); // NEED TO ADD PPID HERE
+	
+	for(p = ptable.proc; p< &ptable.proc[NPROC]; p++){
+		if (p->state == SLEEPING){
+			cprintf("%s \t %d \t SLEEPING \t \n", p->name, p->pid);
+		}
+		if (p->state == RUNNING){
+			cprintf("%s \t %d \t RUNNING \t \n", p->name, p->pid);
+		}
+		if (p->state == RUNNABLE){
+			cprintf("%s \t %d \t RUNNABLE \t \n", p->name, p->pid);
+		}
+	}
+	
+	release(&ptable.lock); 
+	return 22;
+}
