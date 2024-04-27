@@ -534,7 +534,7 @@ procdump(void)
 }
 
 int
-cps()
+cps136()
 {
 	struct proc *p;
 	

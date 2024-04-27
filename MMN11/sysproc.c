@@ -91,7 +91,7 @@ sys_uptime(void)
 }
 
 int
-sys_cps(void){
-	return cps();
+sys_cps136 ( void ){
+	return cps136();
 }
 
