@@ -542,17 +542,17 @@ cps136()
 	sti();
 
 	acquire(&ptable.lock); 		// Get lock for the process table
-	cprintf("name \t pid \t state \t \n"); // NEED TO ADD PPID HERE
+	cprintf("name \t pid \t state \t \t ppid \n"); // NEED TO ADD PPID HERE
 	
 	for(p = ptable.proc; p< &ptable.proc[NPROC]; p++){
 		if (p->state == SLEEPING){
-			cprintf("%s \t %d \t SLEEPING \t \n", p->name, p->pid);
+			cprintf("%s \t %d \t SLEEPING \t %d \n", p->name, p->pid, p->pid == 1 ? 0 : p->parent->pid); // add another \t?
 		}
 		if (p->state == RUNNING){
-			cprintf("%s \t %d \t RUNNING \t \n", p->name, p->pid);
+			cprintf("%s \t %d \t RUNNING \t %d \n", p->name, p->pid, p->pid == 1 ? 0 : p->parent->pid);
 		}
 		if (p->state == RUNNABLE){
-			cprintf("%s \t %d \t RUNNABLE \t \n", p->name, p->pid);
+			cprintf("%s \t %d \t RUNNABLE \t %d \n", p->name, p->pid, p->pid == 1 ? 0 : p->parent->pid);
 		}
 	}
 	
